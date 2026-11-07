@@ -415,6 +415,49 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 .oral-square-card.open .area-unknown{display:none}
 .oral-square-card .tap{bottom:20px;left:30px}
 
+
+/* Уменьшаем внешние поля. Слайды масштабируются без обрезки и искажения. */
+#viewport{bottom:56px}
+#toolbar{height:56px;gap:8px;padding:0 13px}
+#toolbar button{padding:7px 10px}
+#scratchpad{bottom:56px}
+@media(max-width:900px){
+  #toolbar{gap:3px;padding:0 8px}
+  #toolbar button{font-size:13px;padding:7px 6px}
+}
+
+/* Боковая навигация в стиле Genially — по центру левого и правого края слайда. */
+#stage .stage-nav{
+  position:absolute;
+  top:50%;
+  z-index:95;
+  width:52px;
+  height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 0 5px;
+  border:1.5px solid rgba(180,166,208,.72);
+  border-radius:13px;
+  background:rgba(255,255,255,.9);
+  color:#69578f;
+  box-shadow:0 8px 22px rgba(51,39,90,.12);
+  backdrop-filter:blur(9px);
+  font:500 48px/1 Georgia,'Times New Roman',serif;
+  cursor:pointer;
+  transform:translateY(-50%);
+  transition:background .15s,box-shadow .15s,color .15s;
+}
+#stage .stage-nav-prev{left:12px}
+#stage .stage-nav-next{right:12px}
+#stage .stage-nav:hover:not(:disabled){
+  background:rgba(243,237,251,.98);
+  color:#514078;
+  box-shadow:0 12px 26px rgba(51,39,90,.18);
+}
+#stage .stage-nav:focus-visible{outline:3px solid #9e86c4;outline-offset:3px}
+#stage .stage-nav:disabled{opacity:.34;cursor:default;box-shadow:none}
+
 </style></head><body>
 <div id="viewport"><div id="stage">
 <!-- 01 -->
@@ -1001,7 +1044,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 <div class="eyebrow">Математический детектив</div><h2 class="h2">Функция или нет? Докажите ответ</h2><p class="lead">Сначала решите самостоятельно. Нажмите на карточку, чтобы проверить ответ.</p><div class="two" style="margin-top:28px"><button class="click-card" data-flip style="min-height:226px"><span class="tag">А</span><div class="bigcap" style="margin-top:18px">Сторона квадрата → его площадь</div><div class="result">Да. Каждой стороне — единственная площадь.</div><span class="tap">↗ Проверить</span></button><button class="click-card" data-flip style="min-height:226px"><span class="tag rose">Б</span><div class="bigcap" style="margin-top:18px">Возраст ученика → рост среди всех учеников</div><div class="result">Нет. При одном возрасте бывают разные значения роста.</div><span class="tap">↗ Проверить</span></button><button class="click-card" data-flip style="min-height:226px"><span class="tag blue">В</span><div class="bigcap" style="margin-top:18px">Число x → его квадрат x²</div><div class="result">Да. У каждого x единственный квадрат.</div><span class="tap">↗ Проверить</span></button><button class="click-card" data-flip style="min-height:226px"><span class="tag">Г</span><div class="bigcap" style="margin-top:18px">Номер квартиры в одном доме → число проживающих в ней сейчас</div><div class="result">Да. В выбранном доме каждой квартире в данный момент соответствует одно число проживающих.</div><span class="tap">↗ Проверить</span></button></div><div class="callout coral" style="margin-top:25px">Как изменить пример Б, чтобы получить функцию?</div><div class="foot">Обязательное обоснование: «каждому … соответствует единственное …»</div></section>
 <section class="slide" data-phase="Тренажёр" data-time="3" data-note="5 коротких заданий для индивидуального или общего закрепления. В каждом ученик обязан объяснить, почему выбранный вариант правильный. Тренажёр без таймера, чтобы скорость не подменяла математическое мышление. Можно повторить.">
 <div class="eyebrow">Быстрая проверка</div><h2 class="h2">Математический спринт</h2><p class="lead">5 заданий. За каждый ответ — балл. Важно уметь объяснить свой выбор.</p>
-<div class="panel lav" id="quizStart" style="margin:56px auto 0;max-width:960px;text-align:center;padding:70px"><div style="font-size:84px;line-height:1">✦</div><h3 class="h3" style="font-size:45px;margin:23px 0">Готовы проверить открытие?</h3><p class="lead" style="margin-bottom:31px">Отвечайте самостоятельно, затем объясняйте свой выбор.</p><button class="btn" id="quizStartBtn">Начать спринт →</button></div>
+<div class="panel lav" id="quizStart" style="margin:56px auto 0;max-width:960px;text-align:center;padding:70px"><div style="font-size:84px;line-height:1">✦</div><h3 class="h3" style="font-size:45px;margin:23px 0">Готовы проверить свои знания?</h3><p class="lead" style="margin-bottom:31px">Отвечайте самостоятельно, затем объясняйте свой выбор.</p><button class="btn" id="quizStartBtn">Начать спринт →</button></div>
 <div id="quizPlay" class="hidden panel aqua" style="margin-top:29px;padding:26px 36px;min-height:431px"><div class="btnbar" style="justify-content:space-between"><span class="tag blue" id="quizStep">Задание 1 из 5</span><span class="tag" id="quizScore">Баллы: 0</span></div><h3 class="h3" id="quizQuestion" style="margin:30px 0 24px;max-width:1090px"></h3><div id="quizTable" class="hidden" style="max-width:630px;margin:-5px auto 18px"></div>
   <div id="quizOptions" class="two" style="gap:12px"></div><div id="quizFeedback" class="feedback" aria-live="polite"></div><div class="btnbar" style="justify-content:flex-end;margin-top:2px"><button class="btn small" id="quizNext" disabled>Следующее задание →</button></div></div>
 <div id="quizFinish" class="hidden panel good" style="margin:48px auto 0;max-width:850px;text-align:center;padding:55px"><div style="font-size:84px">🏁</div><h3 class="h3" id="quizFinishTitle">Финиш!</h3><p class="lead">Объясните, какой признак вы проверяли в каждом задании.</p><button class="btn" style="margin-top:24px" id="quizRestart">Пройти ещё раз ↺</button></div><div class="foot">Пять вопросов — пять проверок главного признака</div></section>
@@ -1066,8 +1109,11 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
   </div>
 </div>
 </section>
+<!-- Стрелки перехода по слайдам — по бокам презентации, как в Genially -->
+<button id="prev" class="stage-nav stage-nav-prev" type="button" aria-label="Предыдущий слайд" title="Предыдущий слайд (←)">‹</button>
+<button id="next" class="stage-nav stage-nav-next" type="button" aria-label="Следующий слайд" title="Следующий слайд (→)">›</button>
 </div></div>
-<div id="toolbar"><button id="prev" class="nav" title="Предыдущий слайд (←)">←</button><span class="counter" id="counter">01 / 26</span><button id="next" class="nav" title="Следующий слайд (→)">→</button><button id="restart" title="Вернуться к началу">↺ Сначала</button><span class="toolbar-sep"></span><span class="badge-grade">АЛГЕБРА · 7</span><div class="progress"><div class="progress-text" id="phaseText">Мотивация</div><div class="track"><div class="done" id="progressFill"></div></div></div><button id="togglePad" title="Черновик сбоку, не закрывает слайды">✎ Черновик</button><button id="openOverview">▤ План урока</button><button id="openNotes">◫ Учителю</button><button id="fullscreen">⛶ Экран</button><a class="owner" href="https://shkatulka.sistema-math.ru" target="_blank" rel="noopener noreferrer" title="Перейти на сайт">Шкатулка математических интерактивов ↗</a></div>
+<div id="toolbar"><span class="counter" id="counter">01 / 26</span><button id="restart" title="Вернуться к началу">↺ Сначала</button><span class="toolbar-sep"></span><span class="badge-grade">АЛГЕБРА · 7</span><div class="progress"><div class="progress-text" id="phaseText">Мотивация</div><div class="track"><div class="done" id="progressFill"></div></div></div><button id="togglePad" title="Черновик сбоку, не закрывает слайды">✎ Черновик</button><button id="openOverview">▤ План урока</button><button id="openNotes">◫ Учителю</button><button id="fullscreen">⛶ Экран</button><a class="owner" href="https://shkatulka.sistema-math.ru" target="_blank" rel="noopener noreferrer" title="Перейти на сайт">Шкатулка математических интерактивов ↗</a></div>
 <aside id="scratchpad" aria-label="Черновик"><div class="pad-head"><span>✎ Черновик</span><button class="popup-close" id="padClose">✕</button></div><div class="pad-tools"><button id="padPen" class="on">✎ Ручка</button><button id="padErase">⌫ Ластик</button><button id="padUndo">↶ Отменить</button><button id="padClear">Очистить</button></div><div class="pad-paper"><canvas id="padCanvas"></canvas></div></aside>
 <aside id="notesPanel"><button class="popup-close" id="closeNotes">✕</button><div class="stamp">Методическая подсказка</div><h3 style="margin-top:15px">Заметки учителю</h3><div class="notes-time" id="notesTime"></div><p id="notesText"></p><hr style="border:0;border-top:1px solid #e4e1ea;margin:20px 0"><p style="font-size:14px!important;color:#9195a6!important">Заметки не отображаются на ученических слайдах. Закройте панель перед демонстрацией.</p></aside>
 <aside id="overviewPanel"><button class="popup-close" id="closeOverview">✕</button><div class="stamp" id="overviewRouteCaption">Все слайды · полный маршрут</div><h3 style="margin-top:17px">План презентации</h3><div class="overview-list" id="overviewList"></div></aside>
@@ -1077,7 +1123,24 @@ const $=id=>document.getElementById(id); const slides=[...document.querySelector
 const viewport=$('viewport'),stage=$('stage');
 // Всегда показываем все слайды по порядку.
 function moveInRoute(delta){showSlide(current+delta)}
-function fitStage(){const r=viewport.getBoundingClientRect();const scale=Math.min((r.width-28)/1440,(r.height-26)/810);stage.style.transform=`scale(${Math.max(.05,scale)})`;stage.style.left=((r.width-1440*scale)/2)+'px';stage.style.top=((r.height-810*scale)/2)+'px'}
+// Пересчитываем размер слайда по РЕАЛЬНОЙ ширине окна, включая изменение черновика.
+let layoutFrame = 0;
+function fitStage(){
+  const r=viewport.getBoundingClientRect();
+  const safeX=6, safeY=5;
+  const scale=Math.max(.05,Math.min((r.width-safeX*2)/1440,(r.height-safeY*2)/810));
+  stage.style.transform=`scale(${scale})`;
+  stage.style.left=((r.width-1440*scale)/2)+'px';
+  stage.style.top=((r.height-810*scale)/2)+'px';
+}
+function scheduleFit(){
+  if(layoutFrame)cancelAnimationFrame(layoutFrame);
+  layoutFrame=requestAnimationFrame(()=>{layoutFrame=0;fitStage()});
+}
+// ResizeObserver срабатывает и во время CSS-анимации открытия/закрытия черновика.
+new ResizeObserver(scheduleFit).observe(viewport);
+viewport.addEventListener('transitionend',scheduleFit);
+
 function showSlide(n){
   document.getElementById('graphLab')?.classList.add('hidden');
   current=Math.max(0,Math.min(N-1,n));
@@ -1094,7 +1157,36 @@ $('prev').onclick=()=>moveInRoute(-1);
 $('next').onclick=()=>moveInRoute(1);
 $('restart').onclick=()=>showSlide(0);
 document.addEventListener('keydown',e=>{if(!document.getElementById('graphLab')?.classList.contains('hidden')){if(e.key==='Escape'){e.preventDefault();document.getElementById('graphLabClose').click()}else if(!e.target.matches('input,textarea,[contenteditable]')&&(e.key==='ArrowRight'||e.key==='PageDown')){e.preventDefault();document.getElementById('graphLabNext').click()}else if(!e.target.matches('input,textarea,[contenteditable]')&&(e.key==='ArrowLeft'||e.key==='PageUp')){e.preventDefault();document.getElementById('graphLabPrev').click()}return;}if(e.target.matches('input,textarea,[contenteditable]'))return;if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();moveInRoute(1)}else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();moveInRoute(-1)}else if(e.key==='Escape'){$('notesPanel').classList.remove('open');$('overviewPanel').classList.remove('open')}});
-$('fullscreen').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};window.addEventListener('resize',fitStage);document.addEventListener('fullscreenchange',fitStage);
+// Полноэкранный режим: повторное нажатие возвращает обычный размер.
+const fullscreenButton=$('fullscreen');
+function browserFullscreen(){return !!(document.fullscreenElement||document.webkitFullscreenElement)}
+function syncFullscreenButton(){
+  const active=browserFullscreen();
+  fullscreenButton.textContent=active?'↙ Свернуть':'⛶ Экран';
+  fullscreenButton.title=active?'Выйти из полноэкранного режима':'Развернуть презентацию на весь экран';
+  fullscreenButton.setAttribute('aria-pressed',String(active));
+  scheduleFit();
+}
+fullscreenButton.onclick=async()=>{
+  try{
+    if(browserFullscreen()){
+      if(document.exitFullscreen)await document.exitFullscreen();
+      else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();
+    }else{
+      const root=document.documentElement;
+      if(root.requestFullscreen)await root.requestFullscreen();
+      else if(root.webkitRequestFullscreen)await root.webkitRequestFullscreen();
+    }
+  }catch(err){
+    console.warn('Полноэкранный режим ограничен браузером или контейнером:',err);
+  }finally{syncFullscreenButton()}
+};
+window.addEventListener('resize',scheduleFit);
+window.addEventListener('orientationchange',scheduleFit);
+document.addEventListener('fullscreenchange',syncFullscreenButton);
+document.addEventListener('webkitfullscreenchange',syncFullscreenButton);
+syncFullscreenButton();
+
 // Generic controlled reveals and flip cards.
 document.querySelectorAll('[data-flip]').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('open')));
 document.querySelectorAll('[data-reveal]').forEach(b=>b.addEventListener('click',()=>{const target=$(b.dataset.reveal);const opened=target.classList.toggle('open');b.textContent=opened?(b.dataset.hideLabel||'Скрыть ответ ↶'):(b.dataset.showLabel||(b.dataset.reveal.startsWith('exit')?'Открыть ответ ↗':'Показать ответ ↗'))}));
@@ -1163,7 +1255,14 @@ function canvasFit(){let r=cv.getBoundingClientRect();if(!r.width||!r.height)ret
 function drawPad(){if(!pad.classList.contains('open'))return;let w=cv.clientWidth,h=cv.clientHeight;ctx.clearRect(0,0,w,h);for(let s of strokes()){ctx.globalCompositeOperation=s.eraser?'destination-out':'source-over';ctx.strokeStyle='#53526b';ctx.lineWidth=s.eraser?24:3.2;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();s.points.forEach((p,i)=>i?ctx.lineTo(p.x*w,p.y*h):ctx.moveTo(p.x*w,p.y*h));if(s.points.length===1)ctx.lineTo(s.points[0].x*w+.1,s.points[0].y*h+.1);ctx.stroke()}ctx.globalCompositeOperation='source-over'}
 function pos(e){let r=cv.getBoundingClientRect();return{x:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y:Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}}cv.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;pressed=true;cv.setPointerCapture(e.pointerId);activeStroke={eraser:!pen,points:[pos(e)]};strokes().push(activeStroke);drawPad()});cv.addEventListener('pointermove',e=>{if(!pressed)return;activeStroke.points.push(pos(e));drawPad()});['pointerup','pointercancel'].forEach(x=>cv.addEventListener(x,()=>{pressed=false;activeStroke=null}));
 $('padPen').onclick=()=>{pen=true;$('padPen').classList.add('on');$('padErase').classList.remove('on')};$('padErase').onclick=()=>{pen=false;$('padErase').classList.add('on');$('padPen').classList.remove('on')};$('padUndo').onclick=()=>{strokes().pop();drawPad()};$('padClear').onclick=()=>{drawings.set(current,[]);drawPad()};
-function togglePad(force){const open=force??!pad.classList.contains('open');pad.classList.toggle('open',open);document.body.classList.toggle('pad-open',open);$('togglePad').textContent=open?'✎ Скрыть черновик':'✎ Черновик';requestAnimationFrame(()=>{fitStage();if(open)canvasFit()})}$('togglePad').onclick=()=>togglePad();$('padClose').onclick=()=>togglePad(false);new ResizeObserver(()=>{if(pad.classList.contains('open'))canvasFit()}).observe(pad);
+function togglePad(force){
+  const open=force??!pad.classList.contains('open');
+  pad.classList.toggle('open',open);
+  document.body.classList.toggle('pad-open',open);
+  $('togglePad').textContent=open?'✎ Скрыть черновик':'✎ Черновик';
+  scheduleFit();
+  if(open)requestAnimationFrame(canvasFit);
+}$('togglePad').onclick=()=>togglePad();$('padClose').onclick=()=>togglePad(false);new ResizeObserver(()=>{if(pad.classList.contains('open'))canvasFit()}).observe(pad);
 fitStage();showSlide(0);
 
 // Slides are fixed-size projection canvases: avoid accidental internal scrolling
