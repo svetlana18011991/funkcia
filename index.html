@@ -458,6 +458,49 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 #stage .stage-nav:focus-visible{outline:3px solid #9e86c4;outline-offset:3px}
 #stage .stage-nav:disabled{opacity:.34;cursor:default;box-shadow:none}
 
+
+/* Кнопка полноэкранного режима всегда заметна в нижней панели. */
+#toolbar #fullscreen {
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  white-space:nowrap;
+  order:15;
+  min-width:116px;
+  padding:10px 16px;
+  border:1px solid #d3c7e9;
+  border-radius:12px;
+  background:#eee9f9;
+  color:#604f91;
+  font-weight:850;
+  box-shadow:0 3px 10px rgba(78,63,121,.08);
+}
+#toolbar #fullscreen:hover {background:#e5dcf6;color:#503e86}
+#toolbar #fullscreen[aria-pressed="true"] {
+  background:#7563a5;
+  border-color:#7563a5;
+  color:#fff;
+  box-shadow:0 5px 16px rgba(83,67,135,.23);
+}
+#toolbar .owner{order:20}
+@media (max-width:1100px) {
+  #toolbar #fullscreen{min-width:96px;padding:10px 11px;order:19;margin-left:auto}
+}
+@media (max-width:630px) {
+  #toolbar #fullscreen{min-width:86px;padding:9px 9px}
+  #toolbar .progress {display:none}
+}
+/* Bottom bar remains visible when this document itself is fullscreen. */
+:root:fullscreen #toolbar,
+:root:-webkit-full-screen #toolbar {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:1100;
+}
+
 </style></head><body>
 <div id="viewport"><div id="stage">
 <!-- 01 -->
@@ -560,32 +603,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
   <div class="callout repaired-callout" style="margin-top:20px"><b>Что общего?</b> В каждой ситуации одну величину выбираем, а вторую находим по определённому правилу.</div>
   <div class="foot">Следующий шаг — исследуем правило для площади квадрата</div>
 </section>
-<section class="slide" data-phase="Актуализация" data-time="1" data-note="Короткое устное повторение, без записи в тетради. Покажите три значения стороны квадрата; ученики устно называют площади. Затем можно по очереди открыть ответы нажатием на карточки. Попросите вспомнить правило S = a² и сразу переходите к слайду 4, где это правило исследуется интерактивно.">
-  <div class="eyebrow">Устно вспоминаем</div>
-  <h2 class="h2">Вспомним площадь квадрата</h2>
-  <p class="lead">Найдите устно площадь квадрата по длине его стороны. Затем откройте ответы.</p>
-  <div class="three" style="margin-top:45px;gap:24px">
-    <button type="button" class="click-card oral-square-card" data-flip aria-label="Открыть площадь квадрата со стороной 2 сантиметра">
-      <span class="tag">Сторона квадрата</span>
-      <div class="oral-side"><span class="math">a</span> = 2 см</div>
-      <div class="oral-question"><span class="math">S</span> = <span class="area-unknown">?</span><span class="result">4 см²</span></div>
-      <span class="tap">↗ Проверить</span>
-    </button>
-    <button type="button" class="click-card oral-square-card" data-flip aria-label="Открыть площадь квадрата со стороной 3 сантиметра">
-      <span class="tag blue">Сторона квадрата</span>
-      <div class="oral-side"><span class="math">a</span> = 3 см</div>
-      <div class="oral-question"><span class="math">S</span> = <span class="area-unknown">?</span><span class="result">9 см²</span></div>
-      <span class="tap">↗ Проверить</span>
-    </button>
-    <button type="button" class="click-card oral-square-card" data-flip aria-label="Открыть площадь квадрата со стороной 5 сантиметров">
-      <span class="tag rose">Сторона квадрата</span>
-      <div class="oral-side"><span class="math">a</span> = 5 см</div>
-      <div class="oral-question"><span class="math">S</span> = <span class="area-unknown">?</span><span class="result">25 см²</span></div>
-      <span class="tap">↗ Проверить</span>
-    </button>
-  </div>
-  <p class="lead" style="margin-top:34px;font-size:25px">Какое знакомое правило связывает длину стороны <span class="math">a</span> и площадь <span class="math">S</span>?</p>
-</section>
+
 <section class="slide" data-phase="Исследование зависимости" data-time="2" data-note="Живая модель из прошлой задачи. Попросите выбрать длину и предсказать площадь, затем проверить ползунком. Сделайте вывод: одно допустимое значение стороны задаёт ровно одну площадь; нельзя менять S произвольно при фиксированном a.">
 <div class="eyebrow">Экспериментируем</div><h2 class="h2">Измени сторону — посмотри на площадь</h2><p class="lead">Передвигайте ползунок. Может ли у квадрата с одной и той же стороной быть две разные площади?</p>
 <div class="split" style="grid-template-columns:.94fr 1.06fr;gap:52px;margin-top:24px"><div class="panel lav" style="height:470px;display:flex;align-items:center;justify-content:center"><svg id="squareSvg" width="465" height="420" viewBox="0 0 465 420"><defs><pattern id="sqgrid" width="23" height="23" patternUnits="userSpaceOnUse"><path d="M23 0H0V23" fill="none" stroke="#9b88b5" stroke-opacity=".23" stroke-width="1"/></pattern></defs><rect id="squareFill" x="145" y="136" width="148" height="148" rx="2" fill="#e6d9f4" stroke="#826eae" stroke-width="5"/><rect id="squareGrid" x="145" y="136" width="148" height="148" fill="url(#sqgrid)"/><text id="squareCaption" x="219" y="316" text-anchor="middle" font-size="22" fill="#65568e">a = 4 см</text></svg></div><div><div class="panel aqua" style="margin-bottom:20px"><div class="kicker">Задаём сторону</div><div class="big" style="margin:9px 0">a = <b id="sqA">4</b> см</div><input id="sqInput" class="scale-range" type="range" min="1" max="7" step="1" value="4" aria-label="Длина стороны квадрата"><div class="tiny">От 1 до 7 см</div></div><div class="panel rose"><div class="kicker">Получаем площадь</div><div class="formula" style="margin:14px 0">S = a²</div><div class="big">S = <b id="sqS">16</b> см²</div></div><div class="callout" style="margin-top:19px;font-size:23px">Одно <span class="math">a</span> → <b>одно</b> значение <span class="math">S</span>.</div></div></div><div class="foot">От частных чисел — к общему правилу</div></section>
@@ -742,7 +760,12 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
   <div class="foot">Вычисление: для каждого x машина выдаёт единственный результат</div>
 </section>
 <section class="slide" data-phase="Предупреждаем ошибку" data-time="2" data-note="Обнаруживаем и опровергаем ошибку Миши. Это методически важная ловушка: два разных значения аргумента могут давать одно и то же значение функции. Для x=−2 и x=2, функция y=x² даёт 4. Спросите сначала у детей, допустимо ли это, затем откройте вывод.">
-<div class="eyebrow">Ловушка для внимательных</div><h2 class="h2">Разные x — один y. Ошибка ли это?</h2><p class="lead">Миша считает: «Если <b>x = −2</b> и <b>x = 2</b> дают один результат, это не функция». Проверьте его утверждение для <b class="math">y = x²</b>.</p><div class="panel" style="margin:45px 0 22px"><svg viewBox="0 0 1190 280" class="svg"><rect x="82" y="25" width="210" height="87" rx="20" fill="#ece5f8"/><rect x="82" y="174" width="210" height="87" rx="20" fill="#ece5f8"/><text x="185" y="83" text-anchor="middle" font-size="42" fill="#6e5899">−2</text><text x="185" y="230" text-anchor="middle" font-size="42" fill="#6e5899">2</text><g fill="none" stroke="#8d79b5" stroke-width="5"><path d="M304 70 Q535 70 800 137"/><path d="M304 218 Q535 218 800 147"/></g><path d="m787 124 15 13-18 5" fill="none" stroke="#8d79b5" stroke-width="5"/><rect x="810" y="87" width="234" height="110" rx="23" fill="#dcf1ee" stroke="#95c4bc" stroke-width="2"/><text x="927" y="154" text-anchor="middle" font-size="52" fill="#358d80">4</text><text x="571" y="44" text-anchor="middle" font-size="23" fill="#8a779e">возводим в квадрат</text></svg></div><div class="btnbar"><div style="flex:1;font-size:26px;font-weight:750">Это всё-таки функция?</div><button class="btn secondary" data-single-choice="yes" data-choice-group="sameY">Да</button><button class="btn secondary" data-single-choice="no" data-choice-group="sameY">Нет</button></div><div id="sameYFeedback" class="feedback" style="font-size:22px"></div><div class="foot">Запрещено: один x → два РАЗНЫХ y; разрешено: разные x → одно y</div></section>
+<div class="eyebrow">Ловушка для внимательных</div><h2 class="h2">Разные x — один y. Ошибка ли это?</h2><p class="lead">Миша считает: «Если <b>x = −2</b> и <b>x = 2</b> дают один результат, это не функция». Проверьте его утверждение для <b class="math">y = x²</b>.</p><div class="panel" style="margin:45px 0 22px"><svg viewBox="0 0 1190 280" class="svg"><rect x="82" y="25" width="210" height="87" rx="20" fill="#ece5f8"/><rect x="82" y="174" width="210" height="87" rx="20" fill="#ece5f8"/><text x="185" y="83" text-anchor="middle" font-size="42" fill="#6e5899">−2</text><text x="185" y="230" text-anchor="middle" font-size="42" fill="#6e5899">2</text><g fill="none" stroke="#8d79b5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M304 70 C500 70 654 83 800 116"/>
+<path d="M783 104 L800 116 L781 123"/>
+<path d="M304 218 C500 218 654 205 800 165"/>
+<path d="M782 158 L800 165 L787 182"/>
+</g><rect x="810" y="87" width="234" height="110" rx="23" fill="#dcf1ee" stroke="#95c4bc" stroke-width="2"/><text x="927" y="154" text-anchor="middle" font-size="52" fill="#358d80">4</text><text x="571" y="44" text-anchor="middle" font-size="23" fill="#8a779e">возводим в квадрат</text></svg></div><div class="btnbar"><div style="flex:1;font-size:26px;font-weight:750">Это всё-таки функция?</div><button class="btn secondary" data-single-choice="yes" data-choice-group="sameY">Да</button><button class="btn secondary" data-single-choice="no" data-choice-group="sameY">Нет</button></div><div id="sameYFeedback" class="feedback" style="font-size:22px"></div><div class="foot">Запрещено: один x → два РАЗНЫХ y; разрешено: разные x → одно y</div></section>
 <section class="slide" data-phase="Область определения" data-time="1" data-note="Обсудите допустимые значения, привязанные к смыслу ситуации: сторона квадрата положительная; время с начала движения неотрицательное; число купленных билетов — целое неотрицательное. Назовите область определения, не требуйте теории множеств.">
 <div class="eyebrow">Уточняем правило</div><h2 class="h2">Любое ли число можно выбрать?</h2><p class="lead">Рассмотрите смысл задачи. Нажмите на карточку, чтобы увидеть допустимые значения.</p><div class="three" style="margin-top:45px"><button class="click-card" data-flip style="height:315px"><span class="tag">Геометрия</span><div class="formula" style="margin:29px 0 16px;font-size:39px">S = a²</div><div class="bigcap">Сторона квадрата</div><div class="result">a &gt; 0</div><span class="tap">↗ Какие a допустимы?</span></button><button class="click-card" data-flip style="height:315px"><span class="tag blue">Движение</span><div class="formula" style="margin:29px 0 16px;font-size:39px">s = 5t</div><div class="bigcap">Время движения</div><div class="result">t ≥ 0</div><span class="tap">↗ Какие t допустимы?</span></button><button class="click-card" data-flip style="height:315px"><span class="tag rose">Магазин</span><div class="formula" style="margin:29px 0 16px;font-size:39px">C = 90n</div><div class="bigcap">Число билетов</div><div class="result">n = 0, 1, 2, 3, …</div><span class="tap">↗ Какие n допустимы?</span></button></div><div class="callout" style="margin-top:31px">Все допустимые значения аргумента образуют <b>область определения функции</b>.</div><div class="foot">Область определения зависит от смысла задачи и правила</div></section>
 <section class="slide" data-phase="Область значений · расширение" data-time="3" data-note="Материал повышенного уровня или для следующего занятия. ВАЖНО: область определения в основном задании явно ограничена пятью числами. Сначала найдите область значений для заданной области определения, затем по кнопке обсудите расширение области определения до всех действительных чисел. Не делайте вывод о множестве значений только по нескольким строкам таблицы.">
@@ -802,31 +825,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 <div class="eyebrow">Проверяем таблицу</div><h2 class="h2">Какая таблица задаёт функцию?</h2><p class="lead">Проследите за каждым значением <span class="math">x</span>. Не отвечайте по внешнему виду таблицы.</p>
 <div class="two" style="margin-top:34px"><div class="panel lav"><span class="tag">Таблица А</span><table class="table-math" style="margin-top:26px"><tr><th>x</th><td>−1</td><td>0</td><td>1</td><td>2</td></tr><tr><th>y</th><td>1</td><td>0</td><td>1</td><td>4</td></tr></table><button class="btn secondary small" style="margin-top:24px" data-reveal="tableAResult">Проверить А ↗</button><div id="tableAResult" class="toggle-answer" style="font-size:22px;color:var(--good);margin-top:14px"><b>Да, функция.</b> Для каждого x одно значение y.</div></div><div class="panel rose"><span class="tag rose">Таблица Б</span><table class="table-math" style="margin-top:26px"><tr><th>x</th><td>1</td><td>2</td><td>2</td><td>3</td></tr><tr><th>y</th><td>4</td><td>5</td><td>7</td><td>8</td></tr></table><button class="btn secondary small" style="margin-top:24px" data-reveal="tableBResult">Проверить Б ↗</button><div id="tableBResult" class="toggle-answer" style="font-size:22px;color:var(--bad);margin-top:14px"><b>Нет.</b> При x = 2 получаем и 5, и 7.</div></div></div><div style="margin-top:24px"><button class="btn secondary small" type="button" data-reveal="tableCommonResult" data-show-label="Открыть общий вывод ↗" data-hide-label="Скрыть общий вывод ↶">Открыть общий вывод ↗</button></div>
 <div id="tableCommonResult" class="toggle-answer callout coral" style="margin-top:14px">Повторяющееся значение y допустимо. Два <b>разных</b> y для одного x — нет.</div><div class="foot">Алгоритм: выбери x → найди все соответствующие y → сравни</div></section>
-<section class="slide" data-phase="Создаём свою функцию" data-time="4" data-note="Ключевое задание на самостоятельное построение понятия: ученик выбирает СВОЁ правило и значения, затем аргументирует, почему каждому x получается ровно одно y. После этого он строит контрпример — для одного входа два разных выхода. Введённые поля нужны для самостоятельной записи, это не автоматически оцениваемый тест: проверку осуществляет ученик вместе с учителем.">
-<div class="eyebrow">Теперь ты — исследователь</div>
-<h2 class="h2">Создай свою математическую машину</h2>
-<p class="lead">Придумай своё правило. Введи результаты и объясни, почему такая машина задаёт функцию.</p>
-<div class="split" style="grid-template-columns:1.05fr .95fr;gap:23px;align-items:stretch;margin-top:30px">
-  <div class="panel lav" style="min-height:372px;padding:27px 30px">
-    <span class="tag">Шаг 1 · Моё правило</span>
-    <label for="ownRule" class="lesson-label">Что делает машина с числом <span class="math">x</span>?</label>
-    <input id="ownRule" class="lesson-entry" type="text" placeholder="Например: умножает на … и прибавляет …" autocomplete="off"/>
-    <table class="table-math lesson-input-table" style="margin-top:21px">
-      <tr><th>x</th><td>1</td><td>2</td><td>3</td></tr>
-      <tr><th>y</th><td><input aria-label="Результат при x = 1" inputmode="numeric" type="text" placeholder="?"/></td><td><input aria-label="Результат при x = 2" inputmode="numeric" type="text" placeholder="?"/></td><td><input aria-label="Результат при x = 3" inputmode="numeric" type="text" placeholder="?"/></td></tr>
-    </table>
-    <p class="small" style="font-size:19px;margin:15px 0 0">К каждому <span class="math">x</span> должен быть ровно один результат.</p>
-  </div>
-  <div class="panel aqua" style="min-height:372px;padding:27px 30px">
-    <span class="tag blue">Шаг 2 · Проверим границу понятия</span>
-    <p class="small" style="font-size:24px;line-height:1.35;color:var(--ink);margin:21px 0 17px">Придумай соответствие, которое <b>не является функцией</b>.</p>
-    <p class="small" style="font-size:21px;line-height:1.36;margin:0 0 25px">Запиши его в тетради. Объясни, какое условие нарушено.</p>
-    <button class="btn secondary small" data-reveal="studentMachineExample" data-show-label="Посмотреть образец ↗" data-hide-label="Скрыть образец ↶">Посмотреть образец ↗</button>
-    <div id="studentMachineExample" class="toggle-answer lesson-result" style="margin-top:16px;font-size:19px"><b>Функция:</b> <span class="math">y = x + 3</span> (1 → 4; 2 → 5; 3 → 6).<br><b>Не функция:</b> 2 → 4 и 2 → 7 — одному входу соответствуют два разных выхода.</div>
-  </div>
-</div>
-<div class="lesson-insight" style="margin-top:16px">Объясни своё решение: <b>почему</b> машина с твоим правилом задаёт функцию?</div>
-</section>
+
 <section class="slide" data-phase="Графическое представление" data-time="3" data-note="Сначала ученики рассматривают оба рисунка и предлагают, какие из них являются графиками функций y от x. Передвигайте вертикальную прямую: график А (парабола) пересекается с ней в одной точке, график Б (окружность) при некоторых x — в двух. Лишь затем откройте ответы отдельно для А и Б.">
 <div class="eyebrow">Исследуем графики</div>
 <h2 class="h2" style="font-size:49px">Являются ли данные графики графиками функций?</h2>
@@ -847,8 +846,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
   <span class="small">Проверьте разные <span class="math">x</span></span>
 </div>
 </section>
-<section class="slide" data-phase="Обобщаем способ проверки" data-time="1" data-note="Уточните, что на графике функции у каждого допустимого x вертикальная линия пересекает изображение ровно один раз. Окружность как целая фигура не может описываться одним y для каждого x, хотя две полуокружности по отдельности могли бы.">
-<div class="eyebrow">Делаем вывод</div><h2 class="h2">Правило вертикальной линии</h2><p class="lead">Нужно смотреть не на форму рисунка, а на число точек с одной абсциссой.</p><div class="two" style="margin-top:55px"><div class="panel good" style="min-height:299px;text-align:center;padding:44px 30px"><div style="font-size:86px;color:#3e9681">✓</div><h3 class="h3">Не больше одной точки</h3><p class="big">По этому признаку линия может быть графиком функции <span class="math">y</span> от <span class="math">x</span>.</p></div><div class="panel rose" style="min-height:299px;text-align:center;padding:44px 30px"><div style="font-size:86px;color:#bc6178">✕</div><h3 class="h3">Две точки на вертикали</h3><p class="big">Такая линия не является графиком функции <span class="math">y</span> от <span class="math">x</span>.</p></div></div><div class="foot">Графическое следствие определения</div></section>
+
 <section class="slide" data-phase="Читаем готовый график" data-time="3" data-note="Это не проверка вертикальной прямой, а чтение информации с готового графика. Ученики находят y при x=1 и x по данному y=4. На рисунке изображён отрезок графика функции y=x+1 при -2≤x≤3. Сначала ученик объясняет по осям и сетке; пунктирные линии и ответы открываются только по кнопке.">
 <div class="eyebrow">От рисунка — к числам</div>
 <h2 class="h2">Как прочитать значение функции с графика?</h2>
@@ -1112,7 +1110,7 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 <button id="prev" class="stage-nav stage-nav-prev" type="button" aria-label="Предыдущий слайд" title="Предыдущий слайд (←)">‹</button>
 <button id="next" class="stage-nav stage-nav-next" type="button" aria-label="Следующий слайд" title="Следующий слайд (→)">›</button>
 </div></div>
-<div id="toolbar"><span class="counter" id="counter">01 / 26</span><button id="restart" title="Вернуться к началу">↺ Сначала</button><span class="toolbar-sep"></span><span class="badge-grade">АЛГЕБРА · 7</span><div class="progress"><div class="progress-text" id="phaseText">Мотивация</div><div class="track"><div class="done" id="progressFill"></div></div></div><button id="togglePad" title="Черновик сбоку, не закрывает слайды">✎ Черновик</button><button id="openOverview">▤ План урока</button><button id="openNotes">◫ Учителю</button><button id="fullscreen">⛶ Экран</button><a class="owner" href="https://shkatulka.sistema-math.ru" target="_blank" rel="noopener noreferrer" title="Перейти на сайт">Шкатулка математических интерактивов ↗</a></div>
+<div id="toolbar"><span class="counter" id="counter">01 / 23</span><button id="restart" title="Вернуться к началу">↺ Сначала</button><span class="toolbar-sep"></span><span class="badge-grade">АЛГЕБРА · 7</span><div class="progress"><div class="progress-text" id="phaseText">Мотивация</div><div class="track"><div class="done" id="progressFill"></div></div></div><button id="togglePad" title="Черновик сбоку, не закрывает слайды">✎ Черновик</button><button id="openOverview">▤ План урока</button><button id="openNotes">◫ Учителю</button><button id="fullscreen">⛶ Экран</button><a class="owner" href="https://shkatulka.sistema-math.ru" target="_blank" rel="noopener noreferrer" title="Перейти на сайт">Шкатулка математических интерактивов ↗</a></div>
 <aside id="scratchpad" aria-label="Черновик"><div class="pad-head"><span>✎ Черновик</span><button class="popup-close" id="padClose">✕</button></div><div class="pad-tools"><button id="padPen" class="on">✎ Ручка</button><button id="padErase">⌫ Ластик</button><button id="padUndo">↶ Отменить</button><button id="padClear">Очистить</button></div><div class="pad-paper"><canvas id="padCanvas"></canvas></div></aside>
 <aside id="notesPanel"><button class="popup-close" id="closeNotes">✕</button><div class="stamp">Методическая подсказка</div><h3 style="margin-top:15px">Заметки учителю</h3><div class="notes-time" id="notesTime"></div><p id="notesText"></p><hr style="border:0;border-top:1px solid #e4e1ea;margin:20px 0"><p style="font-size:14px!important;color:#9195a6!important">Заметки не отображаются на ученических слайдах. Закройте панель перед демонстрацией.</p></aside>
 <aside id="overviewPanel"><button class="popup-close" id="closeOverview">✕</button><div class="stamp" id="overviewRouteCaption">Все слайды · полный маршрут</div><h3 style="margin-top:17px">План презентации</h3><div class="overview-list" id="overviewList"></div></aside>
@@ -1164,6 +1162,7 @@ function syncFullscreenButton(){
   fullscreenButton.textContent=active?'↙ Свернуть':'⛶ Экран';
   fullscreenButton.title=active?'Выйти из полноэкранного режима':'Развернуть презентацию на весь экран';
   fullscreenButton.setAttribute('aria-pressed',String(active));
+  fullscreenButton.setAttribute('aria-label', active?'Свернуть презентацию':'Развернуть презентацию на весь экран');
   scheduleFit();
 }
 fullscreenButton.onclick=async()=>{
