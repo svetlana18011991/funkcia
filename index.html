@@ -404,6 +404,8 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
 .graph-lab-fields{row-gap:10px}
 .graph-lab-field{min-height:80px}
 .graph-lab-field[data-graph-field="domain"],.graph-lab-field[data-graph-field="range"]{min-height:83px}
+/* Нули идут отдельной строкой, чтобы оба экстремума были рядом в последней строке. */
+.graph-lab-field[data-graph-field="zeros"]{grid-column:1/-1}
 
 
 /* Быстрое устное повторение: три лёгкие карточки вместо большого исследования */
@@ -1169,11 +1171,13 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-weight:400;-w
         <button type="button" class="graph-lab-field" data-graph-field="zeros" aria-pressed="false"><span class="graph-lab-field-label">Нули функции</span><span class="graph-lab-field-lower"><span class="graph-lab-field-answer">____________</span><span class="graph-lab-field-action">Открыть ↗</span></span></button>
         <button type="button" class="graph-lab-field" data-graph-field="pos" aria-pressed="false"><span class="graph-lab-field-label">Где <i>f(x) &gt; 0</i></span><span class="graph-lab-field-lower"><span class="graph-lab-field-answer">____________</span><span class="graph-lab-field-action">Открыть ↗</span></span></button>
         <button type="button" class="graph-lab-field" data-graph-field="neg" aria-pressed="false"><span class="graph-lab-field-label">Где <i>f(x) &lt; 0</i></span><span class="graph-lab-field-lower"><span class="graph-lab-field-answer">____________</span><span class="graph-lab-field-action">Открыть ↗</span></span></button>
+        <button type="button" class="graph-lab-field" data-graph-field="max" aria-pressed="false"><span class="graph-lab-field-label">Наибольшее значение <i>y</i></span><span class="graph-lab-field-lower"><span class="graph-lab-field-answer">____________</span><span class="graph-lab-field-action">Открыть ↗</span></span></button>
+        <button type="button" class="graph-lab-field" data-graph-field="min" aria-pressed="false"><span class="graph-lab-field-label">Наименьшее значение <i>y</i></span><span class="graph-lab-field-lower"><span class="graph-lab-field-answer">____________</span><span class="graph-lab-field-action">Открыть ↗</span></span></button>
       </div>
       
       <div class="graph-lab-checkrow">
         <div><button type="button" class="btn small" id="graphLabReveal">Открыть все ответы</button> <button type="button" class="btn secondary small" id="graphLabClear">Скрыть ответы</button></div>
-        <span class="graph-lab-feedback" id="graphLabFeedback" aria-live="polite">Открыто 0 из 7</span>
+        <span class="graph-lab-feedback" id="graphLabFeedback" aria-live="polite">Открыто 0 из 9</span>
       </div>
     </div>
   </div>
@@ -1354,17 +1358,17 @@ document.querySelectorAll('.slide').forEach(slide=>{
 // Координаты всех характерных точек — целые. Массив open задаёт выколотые точки.
 const graphCases=[
  {name:'Парабола · правый конец выколот',color:'#7562a8',branches:[{curve:true,from:-2,to:4,fn:x=>(x-1)*(x-1)-4,points:[[-2,5],[1,-4],[4,5]],open:[[4,5]]}],
-  answers:{domain:'[-2;4)',range:'[-4;5]',inc:'[1;4)',dec:'[-2;1]',zeros:'-1;3',pos:'[-2;-1)∪(3;4)',neg:'(-1;3)'}},
+  answers:{domain:'[-2;4)',range:'[-4;5]',inc:'[1;4)',dec:'[-2;1]',zeros:'-1;3',pos:'[-2;-1)∪(3;4)',neg:'(-1;3)',max:'y = 5 при x = -2',min:'y = -4 при x = 1'}},
  {name:'Ломаная с вершинами',color:'#287f8f',branches:[{points:[[-5,-2],[-4,0],[-2,4],[0,0],[2,-2],[4,0],[5,2]]}],
-  answers:{domain:'[-5;5]',range:'[-2;4]',inc:'[-5;-2]∪[2;5]',dec:'[-2;2]',zeros:'-4;0;4',pos:'(-4;0)∪(4;5]',neg:'[-5;-4)∪(0;4)'}},
+  answers:{domain:'[-5;5]',range:'[-2;4]',inc:'[-5;-2]∪[2;5]',dec:'[-2;2]',zeros:'-4;0;4',pos:'(-4;0)∪(4;5]',neg:'[-5;-4)∪(0;4)',max:'y = 4 при x = -2',min:'y = -2 при x = -5 или x = 2'}},
  {name:'Ломаная · выколотая точка внутри',color:'#b77582',branches:[{points:[[-5,0],[-3,2],[-1,2],[1,-2],[3,-2],[5,2]],open:[[-2,2]]}],
-  answers:{domain:'[-5;-2)∪(-2;5]',range:'[-2;2]',inc:'[-5;-3]∪[3;5]',dec:'[-1;1]',zeros:'-5;0;4',pos:'(-5;-2)∪(-2;0)∪(4;5]',neg:'(0;4)'}},
+  answers:{domain:'[-5;-2)∪(-2;5]',range:'[-2;2]',inc:'[-5;-3]∪[3;5]',dec:'[-1;1]',zeros:'-5;0;4',pos:'(-5;-2)∪(-2;0)∪(4;5]',neg:'(0;4)',max:'y = 2 при x ∈ [-3;-2) ∪ (-2;-1] или x = 5',min:'y = -2 при x ∈ [1;3]'}},
  {name:'Две отдельные части графика',color:'#7a759e',branches:[{points:[[-5,2],[-3,0],[-1,-2]]},{points:[[1,-2],[3,0],[5,2]]}],
-  answers:{domain:'[-5;-1]∪[1;5]',range:'[-2;2]',inc:'[1;5]',dec:'[-5;-1]',zeros:'-3;3',pos:'[-5;-3)∪(3;5]',neg:'(-3;-1]∪[1;3)'}},
+  answers:{domain:'[-5;-1]∪[1;5]',range:'[-2;2]',inc:'[1;5]',dec:'[-5;-1]',zeros:'-3;3',pos:'[-5;-3)∪(3;5]',neg:'(-3;-1]∪[1;3)',max:'y = 2 при x = -5 или x = 5',min:'y = -2 при x = -1 или x = 1'}},
  {name:'Несколько вершин и нулей',color:'#9f67a4',branches:[{points:[[-6,-2],[-5,0],[-4,2],[-2,-2],[0,2],[2,-2],[4,2],[5,0],[6,-2]]}],
-  answers:{domain:'[-6;6]',range:'[-2;2]',inc:'[-6;-4]∪[-2;0]∪[2;4]',dec:'[-4;-2]∪[0;2]∪[4;6]',zeros:'-5;-3;-1;1;3;5',pos:'(-5;-3)∪(-1;1)∪(3;5)',neg:'[-6;-5)∪(-3;-1)∪(1;3)∪(5;6]'}},
+  answers:{domain:'[-6;6]',range:'[-2;2]',inc:'[-6;-4]∪[-2;0]∪[2;4]',dec:'[-4;-2]∪[0;2]∪[4;6]',zeros:'-5;-3;-1;1;3;5',pos:'(-5;-3)∪(-1;1)∪(3;5)',neg:'[-6;-5)∪(-3;-1)∪(1;3)∪(5;6]',max:'y = 2 при x = -4, 0, 4',min:'y = -2 при x = -6, -2, 2, 6'}},
  {name:'Два уровня значений · выколотый конец',color:'#5a8a85',branches:[{points:[[-5,-1],[-1,-1]]},{points:[[1,1],[5,1]],open:[[5,1]]}],
-  answers:{domain:'[-5;-1]∪[1;5)',range:'{-1;1}',inc:'∅',dec:'∅',zeros:'∅',pos:'[1;5)',neg:'[-5;-1]'}}
+  answers:{domain:'[-5;-1]∪[1;5)',range:'{-1;1}',inc:'∅',dec:'∅',zeros:'∅',pos:'[1;5)',neg:'[-5;-1]',max:'y = 1 при x ∈ [1;5)',min:'y = -1 при x ∈ [-5;-1]'}}
 ];
 const glFields=[...document.querySelectorAll('#graphLabFields [data-graph-field]')];
 const glRevealed=graphCases.map(()=>new Set());
@@ -1492,7 +1496,7 @@ function glDraw(){
  gl('graphLabCounter').textContent=`График ${glCurrent+1} из ${graphCases.length}`;
  gl('graphLabCaption').textContent=item.name;
 }
-const glFieldNames={domain:'Область определения',range:'Область значений',inc:'Возрастает на',dec:'Убывает на',zeros:'Нули функции',pos:'Положительна',neg:'Отрицательна'};
+const glFieldNames={domain:'Область определения',range:'Область значений',inc:'Возрастает на',dec:'Убывает на',zeros:'Нули функции',pos:'Положительна',neg:'Отрицательна',max:'Наибольшее значение y',min:'Наименьшее значение y'};
 function glFormat(field,value){
  if(value==='∅')return '∅ — нет';
  if(field==='zeros')return value.replaceAll(';','; ');
